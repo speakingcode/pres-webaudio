@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>ex1 - oscillator</title>
+  </head>
+  <body>
+    <script>
+// create web audio api context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// create Oscillator node
+var oscillator = audioCtx.createOscillator();
+
+oscillator.type = 'sine';
+oscillator.frequency.value = 800; // value in hertz
+oscillator.connect(audioCtx.destination);
+oscillator.start();
+    </script>
+    change oscillator.type and oscillator.frequency.value to explore oscillator
+  </body>
+</html>

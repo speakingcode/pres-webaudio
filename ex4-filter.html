@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>ex4 - filter</title>
+  </head>
+  <body>
+    <script>
+// create web audio api context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// create Oscillator node
+var oscillator1 = audioCtx.createOscillator(),
+    oscillator2 = audioCtx.createOscillator(),
+    filter      = audioCtx.createBiquadFilter();
+
+oscillator1.type            = 'square';
+oscillator1.frequency.value = 200; // value in hertz
+
+filter.type             = 'lowpass';
+filter.frequency.value  = 410;
+
+oscillator1.connect(filter);
+filter.connect(audioCtx.destination);
+
+
+
+oscillator2.type            = 'square';
+oscillator2.frequency.value = 200; // value in hertz
+oscillator2.connect(audioCtx.destination);
+
+oscillator2.start(); //initially hear signal with no filter
+
+//call this to hear with filter
+function tryFilter() {
+  oscillator2.stop();
+  oscillator1.start();
+}
+    </script>
+    change filter.frequency.value to explore impact
+  </body>
+</html>

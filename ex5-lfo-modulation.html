@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>ex5 - lfo modulation</title>
+  </head>
+  <body>
+    <script>
+// create web audio api context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// create Oscillator node
+var oscillator1 = audioCtx.createOscillator(),
+    lfo         = audioCtx.createOscillator(),
+    lfoFilterGain = audioCtx.createGain(),
+    filter      = audioCtx.createBiquadFilter();
+
+oscillator1.type            = 'square';
+oscillator1.frequency.value = 400; // value in hertz
+
+filter.type             = 'lowpass';
+filter.frequency.value  = 410;
+
+lfoFilterGain.gain.value = 400;
+
+lfo.type            = 'sine';
+lfo.frequency.value = 0.25; // value in hertz
+
+
+lfo.connect(lfoFilterGain.gain);
+lfoFilterGain.connect(filter.frequency);
+
+
+filter.connect(audioCtx.destination);
+
+oscillator1.connect(filter);
+
+oscillator1.start();
+lfo.start(); 
+
+    </script>
+    change filter.frequency.value and lfo.frquency.value to explore impact
+  </body>
+</html>
